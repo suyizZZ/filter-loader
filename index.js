@@ -2,13 +2,22 @@
 const loaderUtils = require('loader-utils');
 const PNGReader = require('@syfwl/png.js');
 const jpeg = require('jpeg-js');
-const { isJpg, cartoon, grayscale, RGBAToBuffer } = require('./util');
+const { isJpg, methods, RGBAToBuffer } = require('./util');
 // const ndarray = require('ndarray');
 
 module.exports = function (content, map, meta) {
   var options = Object.assign({}, loaderUtils.getOptions(this));
+  console.log(options, 'options');
+  const { filter } = options;
+
+  if (!filter){
+		throw new Error('Error options requires filter type');
+	}
+
   const isJpgType = isJpg(content); // 是否为jpg  目前 支持jpg  png 两种格式
   const callback = this.async();
+
+  const method = methods[filter] || methods.default;
 
   if (isJpgType) {
     var rawImageData = jpeg.decode(content, { useTArray: true });
@@ -20,7 +29,7 @@ module.exports = function (content, map, meta) {
       width,
       height,
     };
-    const transformImageData = cartoon(imageData);
+    const transformImageData = method(imageData);
     const buffer = RGBAToBuffer(transformImageData);
     callback(null, buffer);
   } else {
@@ -36,7 +45,7 @@ module.exports = function (content, map, meta) {
         width,
         height,
       };
-      const transformImageData = grayscale(imageData);
+      const transformImageData = method(imageData);
       const buffer = RGBAToBuffer(transformImageData);
       callback(null, buffer);
     });

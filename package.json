@@ -29,9 +29,6 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "file-loader": "^4.0.0",
-    "memory-fs": "^0.4.1",
-    "mocha": "^6.0.0",
     "@syfwl/png.js": "^1.0.0",
     "webpack": "^4.38.0",
     "jpeg-js": "^0.4.3"
