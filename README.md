@@ -13,5 +13,4 @@ monochrome|单色滤镜
 gaussian|高斯滤镜
 casting|怀旧滤镜
 frozen|冰冻滤镜
-comicBook|连环画滤镜
 brown|褐色滤镜

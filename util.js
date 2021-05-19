@@ -224,22 +224,6 @@ const methods = {
     return imgData;
   },
 
-  // 连环画滤镜
-  comicBook: function (imgData) {
-    for (var i = 0; i < imgData.height * imgData.width * 4; i += 4) {
-      var r = imgData.data[i],
-        g = imgData.data[i + 1],
-        b = imgData.data[i + 2];
-
-      var newR = (Math.abs(g - b + g + r) * r) / 256;
-      var newG = (Math.abs(b - g + b + r) * r) / 256;
-      var newB = (Math.abs(b - g + b + r) * g) / 256;
-      var rgbArr = [newR, newG, newB];
-      [imgData.data[i], imgData.data[i + 1], imgData.data[i + 2]] = rgbArr;
-    }
-    return imgData;
-  },
-
   // 褐色滤镜
   brown: function (imgData) {
     for (var i = 0; i < imgData.height * imgData.width * 4; i += 4) {
