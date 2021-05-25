@@ -62,8 +62,7 @@ const methods = {
       var newR = (Math.abs(g - b + g + r) * r) / 256;
       var newG = (Math.abs(b - g + b + r) * r) / 256;
       var newB = (Math.abs(b - g + b + r) * g) / 256;
-      var rgbArr = [newR, newG, newB];
-      [data[i], data[i + 1], data[i + 2]] = rgbArr;
+      [data[i], data[i + 1], data[i + 2]] = [newR, newG, newB];
     }
     return imgData;
   },
@@ -236,6 +235,38 @@ const methods = {
       var rgbArr = [newR, newG, newB];
       [imgData.data[i], imgData.data[i + 1], imgData.data[i + 2]] = rgbArr;
     }
+    return imgData;
+  },
+
+  // 扩散特效， 毛玻璃 效果
+  groundGlass: function (imgData) {
+    const { data, height, width } = imgData;
+    const copyUint8Array = new Uint8Array(width * height * 4);
+    for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+        const m = (i * width + j) * 4;
+        let ir = [i - 1, i, i + 1];
+        if (i === 0) {
+          ir = [i, i + 1];
+        }
+        if (i === width) {
+          ir = [i - 1, i];
+        }
+        let jr = [j - 1, j, j + 1];
+        if (j === 0) {
+          jr = [j, j + 1];
+        }
+        if (j === height) {
+          jr = [j - 1, j];
+        }
+        const randomi = Math.floor(Math.random() * ir.length);
+        const randomj = Math.floor(Math.random() * jr.length);
+        // const rm = ir[randomi] * jr[randomj] * 4;
+        const rm = (ir[randomi] * width + jr[randomj]) * 4;
+        [copyUint8Array[m], copyUint8Array[m + 1], copyUint8Array[m + 2], copyUint8Array[m + 3]] = [data[rm], data[rm + 1], data[rm + 2], data[rm + 3]];
+      }
+    }
+    imgData.data = copyUint8Array;
     return imgData;
   },
 

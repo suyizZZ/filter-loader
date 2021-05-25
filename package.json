@@ -30,7 +30,6 @@
   },
   "devDependencies": {
     "@syfwl/png.js": "^1.0.0",
-    "webpack": "^4.38.0",
     "jpeg-js": "^0.4.3"
   },
   "scripts": {

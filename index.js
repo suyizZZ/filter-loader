@@ -7,7 +7,6 @@ const { isJpg, methods, RGBAToBuffer } = require('./util');
 
 module.exports = function (content, map, meta) {
   var options = Object.assign({}, loaderUtils.getOptions(this));
-  console.log(options, 'options');
   const { filter } = options;
 
   if (!filter){
