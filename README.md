@@ -14,4 +14,5 @@ gaussian|高斯滤镜
 casting|怀旧滤镜
 frozen|冰冻滤镜
 brown|褐色滤镜
+casting|熔铸滤镜
 groundGlass|扩散特效，毛玻璃效果

@@ -17,8 +17,16 @@ module.exports.isJpg = (buffer) => {
   return buffer[0] === 255 && buffer[1] === 216 && buffer[2] === 255;
 };
 
+module.exports.isPng = (buffer) => {
+  if (!buffer || buffer.length < 8) {
+    return false;
+  }
+  const pngMagic = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+  return pngMagic.every((v, index) => v === buffer[index]);
+};
+
 module.exports.getRGBA8Array = function ({ data, width, height }) {
-  const rgbArr = [];
+  const rgbArr = new Uint8Array(width * height * 4);
   for (let i = 0; i < width * height * 4; i += 4) {
     rgbArr[1 + 0] = data[i + 0];
     rgbArr[1 + 1] = data[i + 1];
@@ -187,7 +195,7 @@ const methods = {
     return imgData;
   },
 
-  // 怀旧滤镜
+  // 熔铸滤镜
   casting: function (imgData) {
     for (var i = 0; i < imgData.height * imgData.width * 4; i += 4) {
       var r = imgData.data[i],
@@ -243,7 +251,7 @@ const methods = {
     const { data, height, width } = imgData;
     const copyUint8Array = new Uint8Array(width * height * 4);
     for (let i = 0; i < height; i++) {
-    for (let j = 0; j < width; j++) {
+      for (let j = 0; j < width; j++) {
         const m = (i * width + j) * 4;
         let ir = [i - 1, i, i + 1];
         if (i === 0) {
@@ -261,13 +269,24 @@ const methods = {
         }
         const randomi = Math.floor(Math.random() * ir.length);
         const randomj = Math.floor(Math.random() * jr.length);
-        // const rm = ir[randomi] * jr[randomj] * 4;
         const rm = (ir[randomi] * width + jr[randomj]) * 4;
         [copyUint8Array[m], copyUint8Array[m + 1], copyUint8Array[m + 2], copyUint8Array[m + 3]] = [data[rm], data[rm + 1], data[rm + 2], data[rm + 3]];
       }
     }
     imgData.data = copyUint8Array;
     return imgData;
+  },
+
+  median: function (imgData) {
+    const { data, height, width } = imgData;
+    let r = [];
+    let g = [];
+    let b = [];
+    for (let i = 0; i < width; i++) {
+      for (let j = 0; j < height; j++) {
+        const c = (i * width + j) * 4;
+      }
+    }
   },
 
   default: function (imgData) {
