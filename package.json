@@ -1,6 +1,7 @@
 {
-  "name": "img-loader",
-  "version": "4.0.0",
+  "name": "@syfwl/filter-loader",
+  "version": "1.0.0",
+  "main": "index.js",
   "description": "webpack loader for image filter",
   "keywords": [
     "image",
@@ -31,8 +32,5 @@
   "devDependencies": {
     "@syfwl/png.js": "^1.0.0",
     "jpeg-js": "^0.4.3"
-  },
-  "scripts": {
-    "test": "mocha __tests__/*.spec.js"
   }
 }

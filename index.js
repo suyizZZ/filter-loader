@@ -3,7 +3,6 @@ const loaderUtils = require('loader-utils');
 const PNGReader = require('@syfwl/png.js');
 const jpeg = require('jpeg-js');
 const { isJpg, isPng, methods, RGBAToBuffer } = require('./util');
-// const ndarray = require('ndarray');
 
 module.exports = function (content, map, meta) {
   var options = Object.assign({}, loaderUtils.getOptions(this));
